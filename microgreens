@@ -1,0 +1,90 @@
+const int LED1pin = 2;
+const long LED1onDuration = 18000000;// Relay off time 3 hours (Watering)
+const long LED1offDuration = 15000;// Relay activation time 15 sec (Watering)
+const int LED2pin = 3;
+const long LED2onDuration = 3600000;// Relay shutdown time 1 hour (Blow-off)
+const long LED2offDuration = 600000;// Relay activation time 10 minutes (Blow-off)
+const int LED3pin = 4;
+const long LED3onDuration = 57600000;// Relay off time 16 hours (Lighting)
+const long LED3offDuration = 28800000;// Relay on time 8 hours (Lighting)
+
+
+int LED1State =LOW;// initial state of Relay
+int LED2State =LOW;// initial state of Relay
+int LED3State =LOW;// initial state of Relay
+
+
+long rememberTime1=0;// this is used by the code
+long rememberTime2=0;// this is used by the code
+long rememberTime3=0;// this is used by the code
+
+void setup() {
+  pinMode(LED1pin,OUTPUT);// define LEDpin as output
+  digitalWrite(LED1pin,LED1State);// set initial state
+  pinMode(LED2pin,OUTPUT);// define LEDpin as output
+  digitalWrite(LED2pin,LED2State);// set initial state
+  pinMode(LED3pin,OUTPUT);// define LEDpin as output
+  digitalWrite(LED3pin,LED3State);// set initial state
+}
+
+void loop() {
+  // Robojax LED blink with millis()
+
+ if( LED1State ==HIGH )
+ {
+    if( (millis()- rememberTime1) >= LED1onDuration){   
+    LED1State = LOW;// change the state of LED
+    rememberTime1=millis();// remember Current millis() time
+    }
+ }
+ else
+ {   
+    if( (millis()- rememberTime1) >= LED1offDuration){     
+    LED1State =HIGH;// change the state of LED
+    rememberTime1=millis();// remember Current millis() time
+    }    
+ }
+
+ // Robojax LED blink with millis()
+ digitalWrite(LED1pin,LED1State);// turn the LED ON or OFF
+
+
+ 
+ if( LED2State ==HIGH )
+ {
+    if( (millis()- rememberTime2) >= LED2onDuration){   
+    LED2State = LOW;// change the state of LED
+    rememberTime2=millis();// remember Current millis() time
+    }
+ }
+ else
+ {   
+    if( (millis()- rememberTime2) >= LED2offDuration){     
+    LED2State =HIGH;// change the state of LED
+    rememberTime2=millis();// remember Current millis() time
+    }
+ }
+
+ // Robojax LED blink with millis()
+ digitalWrite(LED2pin,LED2State);// turn the LED ON or OFF
+
+
+  if( LED3State ==HIGH )
+ {
+    if( (millis()- rememberTime3) >= LED3onDuration){   
+    LED3State = LOW;// change the state of LED
+    rememberTime3=millis();// remember Current millis() time
+    }
+ }
+ else
+ {   
+    if( (millis()- rememberTime3) >= LED3offDuration){     
+    LED3State =HIGH;// change the state of LED
+    rememberTime3=millis();// remember Current millis() time
+    }
+ }
+
+ // Robojax LED blink with millis()
+ digitalWrite(LED3pin,LED3State);// turn the LED ON or OFF
+
+}// loop ends
